@@ -12,9 +12,9 @@ import {
     seasCoursesScheduleJson,
     requiredCoursesJson,
     mitJsons,
+    hbsCoursesJson
 } from "./Consts";
 import {getSEASCoursesFromJsons} from "./SEASCourses";
-import {HBSCoursesCsv} from './static/courses/HBS-2022'; // TODO: fix load of original CSV file
 import { useCookies } from 'react-cookie';
 import {parseCoursesJsons} from "./MITCourseCatalogParser";
 import Snackbar from "@mui/material/Snackbar";
@@ -32,7 +32,7 @@ function Schedule() {
 
     React.useEffect(() => {
         const getAllCourses = async () => {
-            const hbsCourses = await parseCourses(HBSCoursesCsv);
+            const hbsCourses = await parseCourses(hbsCoursesJson);
             const seasCourses = await getSEASCoursesFromJsons(seasCoursesListJson, seasCoursesScheduleJson);
             const mitCourses = await parseCoursesJsons(mitJsons);
             let coursesMap = {};

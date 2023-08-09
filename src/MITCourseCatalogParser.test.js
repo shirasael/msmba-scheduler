@@ -76,5 +76,5 @@ test('Parse catalog course', () => {
 });
 
 test('Parse Course 2', () => {
-    const results = parseCoursesJsons([require('./static/courses/MIT-2022/MIT-2.json')]);
+    const results = parseCoursesJsons([require('./static/courses/MIT-2023/MIT-2.json')]);
 });
