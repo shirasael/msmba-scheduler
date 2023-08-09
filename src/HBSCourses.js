@@ -15,18 +15,24 @@ const days = {
 }
 
 
+function pullCourseDetails(rawCourse) {
+    return {
+        SectionID: rawCourse.id,
+        Term: rawCourse.term.name,
+        Title: rawCourse.course.shortName,
+        Faculty: rawCourse.facultyMembers.map(f => `${f.firstName} ${f.lastName}`).join(', '),
+        Day: rawCourse.scheduleType,
+        Start: rawCourse.events[0].startTime,
+        OtherEventsDay:  rawCourse.events.length > 1 ? rawCourse.events[1].scheduleType : '',
+        OtherEventsStart: rawCourse.events.length > 1 ? rawCourse.events[1].startTime : '',
+        LongCourseTitle: rawCourse.course.longName,
+      }
+}
 
-const readCSV = async (csvData) => {
-    return new Promise(resolve => {
-        Papa.parse(csvData, {
-            header: true,
-            complete: results => {
-                console.log('Complete', results.data.length, 'records.');
-                resolve(results.data);
-            }
-        });
-    });
-};
+
+function formatHBSCourses(rawCourseList){
+    return rawCourseList.filter(course => !course.cancelled).map(pullCourseDetails)
+}
 
 function getCourseHours(startRaw) {
     const courseStartHour = moment(startRaw, "hh:mm:ss A");
@@ -64,11 +70,11 @@ function parseCourse(courseData) {
 }
 
 
-export async function parseCourses(filepath) {
-    const rawCourses = await readCSV(filepath);
-    return rawCourses.map(parseCourse);
+export async function parseCourses(rawCourseJson) {
+    const formattedCourses = formatHBSCourses(rawCourseJson);
+    return formattedCourses.map(parseCourse);
 }
 
 export const exportedForTesting = {
-    readCSV, parseCourse
+    parseCourse, pullCourseDetails
 };

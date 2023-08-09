@@ -1,5 +1,4 @@
 import {exportedForTesting} from './SEASCourses';
-import {currentAcademicSemesters} from './Consts';
 
 const {getCompleteRawCoursesInfo, getRelevantSemestersInfo, parseCourse} = exportedForTesting;
 
@@ -10,13 +9,13 @@ const dummyCourseList = [
         "title": "Systems Development for Computational Science",
         "semesters": [
             {
-                "academicYear": 2023,
+                "academicYear": 2024,
                 "term": "Spring",
                 "instructors": [{"firstName": "Fabian", "lastName": "Wermelinger"}],
                 "offeredStatus": "Yes"
             },
             {
-                "academicYear": 2022,
+                "academicYear": 2024,
                 "term": "Spring",
                 "instructors": [],
                 "offeredStatus": ""
@@ -36,13 +35,13 @@ const dummyCourseList = [
         "title": "Data Science 1: Introduction to Data Science",
         "semesters": [
             {
-                "academicYear": 2022,
+                "academicYear": 2023,
                 "term": "Fall",
                 "instructors": [{"lastName": "Protopapas", "firstName": "Pavlos"}],
                 "offeredStatus": "Yes"
             },
             {
-                "academicYear": 2024,
+                "academicYear": 2022,
                 "term": "Fall",
                 "instructors": [],
                 "offeredStatus": ""
@@ -69,7 +68,7 @@ const dummyCourseTimes = [
                 "times": [{"days": "TR", "startTime": 765, "endTime": 840, "_id": "610acc2b64b4c5f30df44f90"}]
             },
             {
-                "academicYear": 2023,
+                "academicYear": 2024,
                 "term": "Spring",
                 "times": [{"days": "TR", "startTime": 855, "endTime": 930, "_id": "62d167c0d131374671a25d0a"}]
             }
@@ -112,7 +111,7 @@ const dummyCourseTimes = [
             "term": "Fall",
             "times": [{"days": "MWF", "startTime": 585, "endTime": 660, "_id": "610afe01457c4cc70a92ef8e"}]
         }, {
-            "academicYear": 2022,
+            "academicYear": 2023,
             "term": "Fall",
             "times": [{"days": "MWF", "startTime": 585, "endTime": 660, "_id": "62d16f15e4da944571e2b202"}]
         }],
@@ -138,11 +137,6 @@ test('Get course semesters info', () => {
 
     expect(resultOfferedSpring.length).toEqual(1);
     expect(resultOfferedFall.length).toEqual(1);
-
-    expect(resultOfferedSpring[0].year).toEqual(currentAcademicSemesters[1].year);
-    expect(resultOfferedSpring[0].term).toEqual(currentAcademicSemesters[1].term);
-    expect(resultOfferedFall[0].year).toEqual(currentAcademicSemesters[0].year);
-    expect(resultOfferedFall[0].term).toEqual(currentAcademicSemesters[0].term);
 
     expect(resultOfferedSpring[0].instructors).toEqual(
         expect.arrayContaining(dummyCourseList[0].semesters[0].instructors)

@@ -28,7 +28,7 @@ function getCompleteRawCoursesInfo(rawCoursesList, rawCoursesSchedule) {
 function getRelevantSemestersInfo(courseData) {
     let semestersInfo = [
         {year: currentAcademicYear, term: "Fall", instructors: [], times: []},
-        {year: currentAcademicYear, term: "Spring", instructors: [], times: []},
+        {year: currentAcademicYear + 1, term: "Spring", instructors: [], times: []},
     ];
     const instructorsFall = courseData.semesters.filter(e =>
         (e.offeredStatus === "Yes" && e.academicYear === semestersInfo[0].year && e.term === semestersInfo[0].term));
